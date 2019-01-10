@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="qb.llrj.pay.dao.OrderDao">
+
+	<!-- 前台订单分页查询 -->
+	<select id="queryorder" parameterType="map" resultType="qb.llrj.pay.model.Order">
+		SELECT TOP ${rows} * FROM pay_order where
+		  	 	 clientno=#{id}
+		  	<if test="status != -1">
+		  		and status=#{status}
+		  	</if>
+	  and id
+	 NOT IN(SELECT TOP ${page} id FROM pay_order where clientno = ${id}
+	 	<if test="status != -1">
+		  		and status=#{status}
+		  	</if>
+	 )
+	</select>
+	<!-- 根据客户id查询客户订单总数 -->
+	<select id="getcount" parameterType="map" resultType="int">
+		SELECT COUNT(0) ROWS FROM pay_order where
+		 		 clientno=#{id}
+		 	<if test="status != -1">
+		  		and status=#{status}
+		  	</if>
+	</select>
+	
+	<!-- 后台订单查询   -->
+	<select id="backorder" parameterType="map" resultType="qb.llrj.pay.model.Order">
+		select top ${rows} * from pay_order where 1 = 1
+		<if test="status != -1">
+		  	and status=#{status}
+		</if>
+		<if test="clientname != null || clientname != ''">and clientname like '%${clientName}%'</if>
+		and id not in(
+		 	select top ${page} id from pay_order where 1 = 1
+		 	<if test="status != -1">
+			  	and status=#{status}
+			</if>
+			<if test="clientname != null || clientname != ''">and clientname like '%${clientName}%'</if>
+		 	)
+	</select>
+	<!-- 后台订单总数 -->
+	<select id="backordercount" parameterType="map" resultType="int">
+		SELECT COUNT(*) ROWS FROM pay_order where 1 = 1
+		<if test="status != -1">
+		  	and status=#{status}
+		</if>
+		<if test="clientname != null || clientname != ''">and clientname like '%${clientName}%'</if>
+	</select>
+</mapper>

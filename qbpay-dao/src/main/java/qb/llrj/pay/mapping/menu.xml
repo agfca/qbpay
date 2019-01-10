@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qb.llrj.pay.dao.MenuDao">
+
+  	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="qb.llrj.pay.model.Menu">
+	    select
+	    c.*,(select menuName from menu p where c.menuParentId = p.menuId) menuParentName
+	    from menu c
+	    where menuId = #{menuId}
+  	</select>
+  
+  	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	    delete from menu
+	    where menuId = #{menuId}
+  	</delete>
+  
+  	<insert id="insert" parameterType="qb.llrj.pay.model.Menu" useGeneratedKeys="true" keyProperty="menuId">
+	    insert into menu 
+	    		(menuParentId, menuName, menuUrl, menuLevel, menuRemark, menuStatu, menuIcon, menuType, ext1, ext2, ext3)
+	    values 	(#{menuParentId},#{menuName}, #{menuUrl}, #{menuLevel},#{menuRemark}, #{menuStatu}, #{menuIcon}, #{menuType}, #{ext1}, #{ext2}, #{ext3})
+  	</insert>
+  
+	<update id="updateByPrimaryKey" parameterType="qb.llrj.pay.model.Menu">
+	    update menu
+	    	set 
+	    	menuParentId = #{menuParentId},
+	      	menuName = #{menuName},
+	      	menuUrl = #{menuUrl},
+	      	menuLevel = #{menuLevel},
+	      	menuRemark = #{menuRemark},
+	      	menuStatu = #{menuStatu},
+	      	menuIcon = #{menuIcon},
+	      	menuType = #{menuType},
+	      	ext1 = #{ext1},
+	      	ext2 = #{ext2},
+	      	ext3 = #{ext3}
+	    where menuId = #{menuId}
+  	</update>
+  
+	<select id="findAll" resultType="qb.llrj.pay.model.Menu">
+		select * from menu
+	</select>
+	
+	<select id="findAllParent" resultType="qb.llrj.pay.model.Menu" parameterType="int">
+		select * from menu where menuParentId = 0 
+		<if test="menuType != null"> and menuType = #{menuType}</if>
+	</select>
+	
+	<select id="findMenuByParentId" resultType="qb.llrj.pay.model.Menu" parameterType="int">
+		select * from menu where menuParentId = #{menuParentId}
+	</select>
+	
+	<update id="editMenuStatuByParentId">
+		update menu
+		set
+		menuStatu = #{menuStatu}
+		where menuParentId = #{menuParentId}
+	</update>
+	
+	<update id="editMenuTypeByParentId">
+		update menu
+		set
+		menuType = #{menuType}
+		where menuParentId = #{menuParentId}
+	</update>
+	
+	<delete id="delMenuByParentId" parameterType="int">
+		delete from menu
+			where menuParentId = #{menuParentId}
+	</delete>
+	
+	<select id="findMenuByMenuType" parameterType="int" resultType="qb.llrj.pay.model.Menu">
+		select * from menu
+		 where menuType = #{menuType} or menutype = 2
+	</select>
+</mapper>

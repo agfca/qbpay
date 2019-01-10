@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人注册-填写详细信息</title>
+    <base href="/qbpay-forwardsys/" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+	<style>
+	.form-control{
+	    border: 1px solid #23B7E5;
+	}
+	
+	</style>
+</head>
+
+<body>
+<div class="container">
+ <form class="form-horizontal" id="myform">
+ <div class="form-group" style="text-align:center;">用户注册</div>
+ <div class="form-group">
+   	<hr style="border:1 dashed #987cb9" width="80%" color="#987cb9" size=1>	
+   </div>
+   <div class="form-group">
+    <label  class="col-sm-2 control-label">输入您的手机号码</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="clientPhone" name="clientPhone" placeholder="手机号码" placeholder="请输入您的注册手机号码" value="17774977753">
+    </div>
+    <div class="col-sm-4" id="phonemsg">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label  class="col-sm-2 control-label">登录密码</label>
+    <div class="col-sm-6">
+      <input type="password" class="form-control" id="password" name="password" placeholder="请输入您的登录密码" value="123456">
+    </div>
+    <div class="col-sm-4" id="passwordMsg"></div>
+  </div>
+  <div class="form-group">
+    <label  class="col-sm-2 control-label">登录确认密码</label>
+    <div class="col-sm-6">
+      <input type="password" class="form-control" id="comfirmpassword" name="comfirmpassword" placeholder="请输入您的登录密码，两次输入必须一致" value="123456">
+    </div>
+    <div class="col-sm-4" id="comfirmpasswordMsg"></div>
+  </div>
+   <hr style="border:1 dashed #987cb9" width="80%" color="#987cb9" size=1>	
+<div class="form-group">
+    <label  class="col-sm-2 control-label">支付密码</label>
+    <div class="col-sm-6">
+      <input type="password" class="form-control" id="paypassword" name="paypassword" placeholder="请输入您的支付密码" value="123456">
+    </div>
+    <div class="col-sm-4" id="paypasswordMsg"></div>
+  </div>
+  <div class="form-group">
+    <label  class="col-sm-2 control-label">确认支付密码</label>
+    <div class="col-sm-6">
+      <input type="password" class="form-control" id="confirmpaypassword" name="confirmpaypassword" placeholder="请输入您的支付密码，两次输入必须一致" value="123456">
+    </div>
+    <div class="col-sm-4" id="confirmpaypasswordMsg"></div>
+  </div>
+   
+   <hr style="border:1 dashed #987cb9" width="80%" color="#987cb9" size=1>	
+<div class="form-group">
+    <label  class="col-sm-2 control-label">真实姓名</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="clientName" name="clientName" placeholder="请输入您的真实姓名" value="">
+    </div>
+    <div class="col-sm-4" id="clientNameMsg"></div>
+  </div>
+  <div class="form-group">
+    <label  class="col-sm-2 control-label">身份证号码</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="socialUnifiedCode" name="socialUnifiedCode" placeholder="请输入您的身份证号码" value="">
+    </div>
+    <div class="col-sm-4" id="socialUnifiedCodeMsg"></div>
+  </div>
+  <div class="form-group">
+    <label  class="col-sm-2 control-label">身份证期限</label>
+    <div class="col-sm-2">
+      <input type="text" class="form-control datepicker" id="socialCodeStartDate"  " name="socialCodeStartDate" placeholder="身份证有效开始日期">
+    </div>
+     <div class="col-sm-2">
+      <input type="text" class="form-control datepicker"  id="socialCodeEndDate" name="socialCodeEndDate" placeholder="身份证有效截止日期">
+    </div>
+    <div class="col-sm-2">
+    	<div class="checkbox" style="display:none" >
+		    <label>
+		      <input type="checkbox" id="socialCodeDateState"  name="socialCodeDateState">  长期有效
+		    </label>
+	  </div> 
+    </div>
+    <div class="col-sm-4"  id="DateStateMsg"></div>
+  </div>
+<div class="form-group">
+    <label  class="col-sm-2 control-label">省份城市</label>
+    <div class="col-sm-2">
+		   <select class="form-control" id="clientProvinceId" name="clientProvinceId">
+		   </select>
+    </div>
+     <div class="col-sm-2">
+     	<select class="form-control" id="clientCityId" name="clientCityId">
+		</select>
+    </div>
+    <div class="col-sm-2">
+    	<select class="form-control" id="clientAreaId" name="clientAreaId">
+		</select>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label  class="col-sm-2 control-label">常住地址</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="clientAddress" name="clientAddress" placeholder="请输入常住地址">
+    </div>
+    <div class="col-sm-4" id="clientAddressMsg"></div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="button" id="btnnext" class="btn btn-primary">提交注册</button>
+    </div>
+  </div>
+</form>
+   
+</div>
+</body>
+<!-- 全局js -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+	<script src="js/layer/layer.min.js"></script>
+	<script type="text/javascript" src="js/CommAjax.js"></script>
+	<script type="text/javascript" src="js/CommPublic.js"></script>
+	<script type="text/javascript" src="js/CommCity.js"></script>
+	<script type="text/javascript" src="js/md5.min.js"></script>
+	<script src="js/bootstrapValidator.min.js"></script>
+	<script type="text/javascript" src="js/datapicker/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="js/datapicker/bootstrap-datepicker.zh-CN.js"></script>
+    <script>
+        //获取省份
+        function getPro(){
+        	var clientProvinceIdBox=$("#clientProvinceId");
+        	getAreaList(clientProvinceIdBox,0,false);	//获取省份
+        }
+        //获取城市
+	    function getcity(pid){
+	    	
+			var clientCityIdBox=$("#clientCityId");
+			var clientAreaIdBox=$("#clientAreaId");
+
+			getAreaList(clientCityIdBox,pid,true);	//获取城市
+			
+			var cid=clientCityIdBox.val();		//获取县、区
+			getAreaList(clientAreaIdBox,cid,true);
+		}
+	    function getarea(cid){
+	    	var clientAreaIdBox=$("#clientAreaId");
+			getAreaList(clientAreaIdBox,cid,true);
+	    }
+ 		//表单验证
+ 		function formValidator(){
+ 			$('#myform').bootstrapValidator({
+	   	　　　　　　　　message: 'This value is not valid',
+	   	            　feedbackIcons: {
+	   	                　　　　　　　　valid: 'glyphicon glyphicon-ok',
+	   	                　　　　　　　　invalid: 'glyphicon glyphicon-remove',
+	   	                　　　　　　　　validating: 'glyphicon glyphicon-refresh'
+	   	            　　　　　　　　   },
+	   	            fields: {
+	   	            	clientPhone: {
+	   	                    validators: {
+	   	                        notEmpty: {
+	   	                            message: '手机号码不能为空'
+	   	                        },
+	   	                     remote: {//ajax验证
+	                             url: 'userRegister/CheckPhoneIsExit.htm',
+	                             message: '手机号码已经注册',//提示消息
+	                             type: 'POST',//请求方式
+	                             data: function(validator){
+	                                 return {
+	                                     'clientPhone': $("#clientPhone").val(),
+	                                 };
+	                             }
+	                         }
+	   	                    }
+	   	                },
+	   	                password: {
+	   	                    validators: {
+	   	                        notEmpty: {
+	   	                            message: '登录密码不能为空'
+	   	                        }
+	   	                    }
+	   	                },
+	   	             	comfirmpassword: {
+	   	                    validators: {
+	   	                        notEmpty: {
+	   	                            message: '登录确认密码不能为空'
+	   	                        },identical:{
+		   	                    	field:'password',
+		   	                    	message:'两次输入的登录密码不一致'
+		   	                    }
+	   	                    }
+	   	                },
+	   	             	paypassword: {
+	   	                    validators: {
+	   	                        notEmpty: {
+	   	                            message: '支付密码不能为空'
+	   	                        }
+	   	                    }
+	   	                },
+	   	             	confirmpaypassword: {
+	   	                    validators: {
+	   	                        notEmpty: {
+	   	                            message: '支付确认密码不能为空'
+	   	                        },identical:{
+		   	                    	field:'password',
+		   	                    	message:'两次输入的支付密码不一致'
+		   	                    }
+	   	                    }
+	   	                },
+	   	              clientName: {
+	   	                    validators: {
+	   	                        notEmpty: {
+	   	                            message: '请输入用户真实姓名'
+	   	                        }
+	   	                    }
+	   	                },
+	   	             socialUnifiedCode: {
+	   	                    validators: {
+	   	                        notEmpty: {
+	   	                            message: '请输入用户身份证号码'
+	   	                        },
+				   	             regexp: {
+			                         regexp:/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
+			                         message: '身份证号码格式不正确，为15位和18位身份证号码！'
+			                     }
+	   	                    }
+	   	                },
+	   	             socialCodeStartDate:{
+	   	            	trigger:'change',
+	   	            	validators:{
+	   	            		notEmpty: {
+	                            message: '请选择身份证有效开始日期'
+	                        },
+	                        date: {
+	                            format: 'YYYY-MM-DD',
+	                            message: '日期格式无效'
+	                            },
+	                        callback:{
+		                    	message:'身份证开始日期不能大于当前日期',
+		                    	callback:function (value, validator){
+		                    		var curTime = new Date().Format('yyyy-MM-dd');
+		                    		if(CommPublic.compareDate(value,curTime)==true){
+		                    			return true
+		                    		}else{
+		                    			return false;
+		                    		}
+		                    	}
+	                        }
+	   	            	}
+	   	             },
+	   	          socialCodeEndDate:{
+	   	        	trigger:'change',
+	   	        	validators:{
+	   	        		notEmpty: {
+	                     message: '请选择身份证有效期结束日期',
+	                     callback:function(){
+	                    	 //socialCodeDateState
+	                    	var _socialCodeDateState=$("#socialCodeDateState").is(':checked');
+	                    	 if(_socialCodeDateState==true)
+	                    		 return true;
+	                    
+	                     }   
+	                    },
+	                    date: {
+                            format: 'YYYY-MM-DD',
+                            message: '日期格式无效'
+                            },
+	                    callback:{
+	                    	message:'身份证有效期结束日期不能小于开始日期',
+	                    	callback:function (value, validator){
+	                    		var _socialCodeDateState=$("#socialCodeDateState").is(':checked');
+		                    	 if(_socialCodeDateState==true)
+		                    		 return true;
+		                    	 
+	                    		var st=validator.getFieldElements('socialCodeStartDate').val();
+	                    		if(CommPublic.compareDate(st,value)==true){
+	                    			return true
+	                    		}else{
+	                    			return false;
+	                    		}
+	                    	}
+	                    }
+	   	        	}
+	   	        	
+	   	          },
+	   	       	clientAddress: {
+	                    validators: {
+	                        notEmpty: {
+	                            message: '请输入常住地址'
+	                        }
+	                    }
+	                },
+	   	                
+	   	             //字段验证结束  
+	   	            }
+	   	        });
+ 		}
+		$(function(){
+			//初始化页面数据------------------------------------
+			getPro();
+			var pid=$("#clientProvinceId").val();
+			getcity(pid);
+			
+			$("#clientProvinceId").on("change",function(){
+				pid=$("#clientProvinceId").val();
+				getcity(pid);
+			})
+			$("#clientCityId").on("change",function(){
+				var cid=$("#clientCityId").val();
+				getarea(cid);
+			})
+			
+			 $(".datepicker").datepicker({
+				 language:  'zh-CN',
+	            format: 'yyyy-mm',
+	            weekStart: 1,
+	            todayBtn:  1,
+	            autoclose: 1,
+	            todayHighlight: 1,
+	            startView: 3, //这里就设置了默认视图为年视图
+	            minView: 3, //设置最小视图为年视图
+	            forceParse: 0,
+               format: "yyyy-mm-dd"//日期格式
+	        });
+
+			$("#socialCodeStartDate").datepicker('setDate',new Date())
+			$("#socialCodeEndDate").datepicker('setDate',new Date()); //设置为当前日期	
+
+			//初始化表单验证
+			formValidator();
+			
+			//提交用户注册--------------------------------------------
+			$("#btnnext").on("click",function(){	
+				var data = $('#myform').data('bootstrapValidator');
+				if (data) {
+    			    // 修复记忆的组件不验证
+    			        data.validate();
+    			        if (!data.isValid()) {
+    			            return false;
+    			            
+    			        }
+    			    }
+				var passwordBox=$("#password");
+				var comfirmpasswordBox=$("#comfirmpassword");
+				var paypasswordBox=$("#paypassword");
+				var confirmpaypasswordBox=$("#confirmpaypassword");
+				var clientNameBox=$("#clientName");
+				var socialUnifiedCodeBox=$("#socialUnifiedCode");
+				var socialCodeStartDateBox=$("#socialCodeStartDate");
+				var socialCodeEndDateBox=$("#socialCodeEndDate");
+				var clientAddressBox=$("#clientAddress");
+				var clientProvinceIdBox=$("#clientProvinceId");
+				var clientCityIdBox=$("#clientCityId");
+				var clientAreaIdBox=$("#clientAreaId");
+				var clientPhoneBox=$("#clientPhone");
+				var _socialCodeDateState=$("#socialCodeDateState").is(':checked');//是否长期有效
+
+				var data={
+	 					"clientPhone":clientPhoneBox.val(),
+	 					"password":md5(passwordBox.val()),
+	 					"paypassword":md5(paypasswordBox.val()),
+	 					"clientName":clientNameBox.val(),
+	 					"socialUnifiedCode":socialUnifiedCodeBox.val(),
+	 					"socialCodeStartDate":socialCodeStartDateBox.val(),
+	 					"socialCodeEndDate":socialCodeEndDateBox.val(),
+	 					"socialCodeDateState":_socialCodeDateState==true?"1":"0",
+	 					"clientProvinceId":clientProvinceIdBox.val(),
+	 					"clientProvinceTxt":$("#clientProvinceId option:selected").text(),
+	 					"clientCityId":clientCityIdBox.val(),
+	 					"clientCityTxt":$("#clientCityId option:selected").text(),
+	 					"clientAreaId":clientAreaIdBox.val(),
+	 					"clientAreaTxt":$("#clientAreaId option:selected").text(),
+	 					"clientAddress":clientAddressBox.val()
+	 			 	 };
+				//alert(JSON.stringify(data));
+				//console.log(JSON.stringify(data));
+					var index = layer.load();
+					setTimeout(function(){
+						layer.close(index);
+						CommAjax.SubmitAjaxCallBack("userRegister/RegisterSubmit.htm",data,function(res){
+						console.log(JSON.stringify(res));
+	 					if(res.Result==false){
+	 						layer.alert(res.Msg);
+	 					}
+	 					else{
+	 						window.location.href = "/qbpay-forwardsys";
+	 					}
+	 					
+	 				},null)
+					},2000);
+					
+				
+			})
+		});
+	</script>
+</html>

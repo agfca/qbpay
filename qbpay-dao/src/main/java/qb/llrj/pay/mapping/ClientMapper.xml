@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="qb.llrj.pay.dao.ClientDao" >
+
+  <select id="findListByCurrentId" resultType="java.util.Map" parameterType="map" >
+    select 
+     id=a.id,parentid=a.parentid, clientAddress=clientaddress, clientCityId=clientcityid, clientCityTxt=clientcitytxt, 
+     clientCodeEndDate=clientcodeenddate, clientCodeStartDate=clientcodestartdate, 
+    clientCodeDateState=clientcodedatestate, clientName=clientname, clientNumber=clientnumber, clientPhone=clientphone, 
+    clientProvinceId=clientprovinceid, clientProvinceTxt=clientprovincetxt, 
+    clientAreaId=clientareaid, clientAreaTxt=clientareatxt, clientType=clienttype, coopName=coopname, createTime=createtime, 
+    a.ext1, a.ext2, a.ext3, a.ext4, a.ext5, fBankId=fbankid, fBankName=fbankname, fBankSeat=fbankseat, overTime=overtime, 
+    siteName=sitename, siteURL=siteurl, socialUnifiedCode=socialunifiedcode, userEmail=useremail, userKey=userkey, userQQ=userqq, 
+    userStatus=userstatus, userTel=usertel,clientStatus=clientstatus,roleId=a.roleid,
+    roleName=b.roleName from client  a left join  role b on a.roleid=b.roleId
+    where a.id = #{id}  or (a.parentid=#{id} )
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="int" resultType="qb.llrj.pay.model.Client">
+  	select * from client where id = #{id}
+  </select>
+  
+  <delete id="deleteByMap" parameterType="map" >
+	  delete from client where id = #{id}
+  </delete>
+  
+   <select id="selectByPhone" parameterType="map"   resultType="qb.llrj.pay.model.Client">
+    	select  top 1 * from client where id>0 
+	<if test="id == 0"> and clientPhone = #{clientPhone}</if>
+	<if test="id != 0"> and id !=#{id} and clientPhone = #{clientPhone} </if>
+    </select>
+    
+    <select id="selectByUnifiedCode" parameterType="map"   resultType="qb.llrj.pay.model.Client">
+    	select  top 1  * from client  where id>0 
+	<if test="id == 0"> and socialUnifiedCode = #{socialUnifiedCode}</if>
+	<if test="id != 0"> and id !=#{id}  and socialUnifiedCode = #{socialUnifiedCode} </if>
+    </select>
+    
+    <delete id="deleteByPrimaryKey" parameterType="int">
+    	delete from client where id=#{id}
+    </delete>
+    
+    <update id="updateByPrimaryKey" parameterType="qb.llrj.pay.model.Client">
+    	update client set
+    		parentid = #{parentid},
+    		clientaddress = #{clientAddress}, 
+    		clientcityid = #{clientCityId}, 
+      		clientcitytxt = #{clientCityTxt}, 
+      		clientcodeenddate = #{clientCodeEndDate},
+      		clientcodestartdate = #{clientCodeStartDate}, 
+      		clientcodedatestate = #{clientCodeDateState},
+       		clientname = #{clientName},
+	       	clientnumber = #{clientNumber}, 
+	      	clientphone = #{clientPhone}, 
+	      	clientprovinceid = #{clientProvinceId}, 
+	      	clientprovincetxt = #{clientProvinceTxt}, 
+	      	clientareaid = #{clientAreaId}, 
+	      	clientareatxt = #{clientAreaTxt}, 
+	      	clienttype = #{clientType}, 
+	      	coopname = #{coopName}, 
+	      	createtime = #{createTime}, 
+	      	ext1 = #{ext1}, 
+	      	ext2 = #{ext2}, 
+	      	ext3 = #{ext3}, 
+	      	ext4 = #{ext4}, 
+	      	ext5 = #{ext5}, 
+	      	fbankid = #{fBankId}, 
+	      	fbankname = #{fBankName}, 
+	      	fbankseat = #{fBankSeat}, 
+	      	overtime = #{overTime}, 
+	      	password = #{password}, 
+	      	paypassword = #{payPassword}, 
+	      	sitename = #{siteName}, 
+	      	siteurl = #{siteURL}, 
+	      	socialunifiedcode = #{socialUnifiedCode}, 
+	      	useremail = #{userEmail}, 
+	      	userkey = #{userKey}, 
+	      	userqq = #{userQQ}, 
+	      	userstatus = #{userStatus}, 
+	      	usertel = #{userTel}, 
+	      	roleId  = #{roleId}
+	      	where id = #{id}
+    </update>
+    
+   <insert id="insert" parameterType="qb.llrj.pay.model.Client"   useGeneratedKeys="true" keyProperty="id">
+    insert into client (
+      parentid,clientaddress, clientcityid, 
+      clientcitytxt, clientcodeenddate, clientcodestartdate, 
+      clientcodedatestate, clientname, clientnumber, 
+      clientphone, clientprovinceid, clientprovincetxt, 
+      clientareaid, clientareatxt, clienttype, 
+      coopname, createtime, ext1, 
+      ext2, ext3, ext4, ext5, 
+      fbankid, fbankname, fbankseat, 
+      overtime, password, paypassword, 
+      sitename, siteurl, socialunifiedcode, 
+      useremail, userkey, userqq, 
+      userstatus, usertel, roleId)
+    values (#{parentid,jdbcType=INTEGER},#{clientAddress,jdbcType=VARCHAR}, #{clientCityId,jdbcType=INTEGER}, 
+      #{clientCityTxt,jdbcType=VARCHAR}, #{clientCodeEndDate,jdbcType=VARCHAR}, #{clientCodeStartDate,jdbcType=VARCHAR}, 
+      #{clientCodeDateState,jdbcType=INTEGER}, #{clientName,jdbcType=VARCHAR}, #{clientNumber,jdbcType=VARCHAR}, 
+      #{clientPhone,jdbcType=VARCHAR}, #{clientProvinceId,jdbcType=INTEGER}, #{clientProvinceTxt,jdbcType=VARCHAR}, 
+      #{clientAreaId,jdbcType=INTEGER}, #{clientAreaTxt,jdbcType=VARCHAR}, #{clientType,jdbcType=INTEGER}, 
+      #{coopName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{ext1,jdbcType=VARCHAR}, 
+      #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, #{ext5,jdbcType=VARCHAR}, 
+      #{fBankId,jdbcType=VARCHAR}, #{fBankName,jdbcType=VARCHAR}, #{fBankSeat,jdbcType=VARCHAR}, 
+      #{overTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, #{payPassword,jdbcType=VARCHAR}, 
+      #{siteName,jdbcType=VARCHAR}, #{siteURL,jdbcType=VARCHAR}, #{socialUnifiedCode,jdbcType=VARCHAR}, 
+      #{userEmail,jdbcType=VARCHAR}, #{userKey,jdbcType=VARCHAR}, #{userQQ,jdbcType=VARCHAR}, 
+      #{userStatus,jdbcType=INTEGER}, #{userTel,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER})
+  </insert>
+  
+  <select id="findClientByParam" parameterType="map" resultType="qb.llrj.pay.model.Client">
+  	select top ${limit} * from client 
+  		where 1=1 and parentid  = 0
+  		<if test="clientType != 0"> and clientType = #{clientType}</if>
+  		<if test="clientName != ''"> and clientName like '%${clientName}%'</if>
+  		<if test="userStatus != -1"> and userStatus = #{userStatus}</if>
+  		and id not in
+  		(
+  			select top ${offset} id from client 
+		  		where 1=1 and parentid  = 0
+		  		<if test="clientType != 0"> and clientType = #{clientType}</if>
+		  		<if test="clientName != ''"> and clientName like '%${clientName}%'</if>
+		  		<if test="userStatus != -1"> and userStatus = #{userStatus}</if>
+		  		order by createTime desc
+  		)
+  		order by createTime desc
+  </select>
+  
+  <select id="findClientCountByParam" parameterType="map" resultType="int">
+  	select count(*) from client 
+  		where 1=1 and parentid  = 0
+  		<if test="clientType != 0"> and clientType = #{clientType}</if>
+  		<if test="clientName != ''"> and clientName like '%${clientName}%'</if>
+  		<if test="userStatus != -1"> and userStatus = #{userStatus}</if>
+  </select>
+  
+</mapper>

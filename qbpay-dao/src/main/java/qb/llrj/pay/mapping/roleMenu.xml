@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qb.llrj.pay.dao.RoleMenuDao">
+
+  	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="qb.llrj.pay.model.RoleMenu">
+	    select
+	    *
+	    from role_menu
+	    where roleMenuId = #{roleMenuId}
+  	</select>
+  
+  	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	    delete from role_menu
+	    where roleMenuId = #{roleMenuId}
+  	</delete>
+  
+  	<insert id="insert" parameterType="qb.llrj.pay.model.RoleMenu" useGeneratedKeys="true" keyProperty="roleMenuId">
+	    insert into role_menu 
+	    		(menuId, roleId, menuName, menuUrl, ext1, ext2, ext3)
+	    values 	(#{menuId},#{roleId}, #{menuName}, #{menuUrl}, #{ext1}, #{ext2}, #{ext3})
+  	</insert>
+  
+	<update id="updateByPrimaryKey" parameterType="qb.llrj.pay.model.RoleMenu">
+	    update role_menu
+	    	set 
+	    	menuId = #{menuId},
+	      	roleId = #{roleId},
+	      	menuName = #{menuName},
+	      	menuUrl = #{menuUrl},
+	      	ext1 = #{ext1},
+	      	ext2 = #{ext2},
+	      	ext3 = #{ext3}
+	    where roleMenuId = #{roleMenuId}
+  	</update>
+  
+	<select id="findAll" resultType="qb.llrj.pay.model.RoleMenu">
+		select * from role_menu
+	</select>
+	
+	<select id="findByRoleId" parameterType="int" resultType="qb.llrj.pay.model.RoleMenu">
+		select * from role_menu where roleId = #{roleId}
+	</select>
+	
+	<delete id="delByRoleId" parameterType="int">
+		delete from role_menu
+			where roleId = #{roleId}
+	</delete>
+</mapper>

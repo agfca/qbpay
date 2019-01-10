@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/task
+                        http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+	<mvc:annotation-driven>
+		<!-- 修改springmvc默认的jackson转换器，调整为淘宝的fastjson -->
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8" index="0"></constructor-arg>
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/plain;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+						<value>application/json</value>
+					</list>
+				</property>
+				<property name="fastJsonConfig">
+					<bean class="com.alibaba.fastjson.support.config.FastJsonConfig">
+						<property name="features">
+							<list>
+								<value>AllowArbitraryCommas</value>
+								<value>AllowUnQuotedFieldNames</value>
+								<value>DisableCircularReferenceDetect</value>
+							</list>
+						</property>
+						<property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"></property>
+					</bean>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<!-- 2.静态资源默认的servlet配置 -->
+	<mvc:default-servlet-handler/>
+	
+	<!-- swagger页面资源 -->
+ 	<!-- <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>  -->
+ 	<mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>  
+	<mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/> 
+ 	
+	<bean id="velocityConfigurer"  
+        class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">  
+        <!-- 模板路径 -->  
+        <property name="resourceLoaderPath" value="/view/"/>        
+        <property name= "velocityProperties">        
+            <props>        
+                <prop key= "input.encoding">utf-8</prop>        
+                <prop key= "output.encoding">utf-8</prop> 
+			    <prop key="directive.foreach.counter.name">loopCounter</prop> 
+	            <prop key="directive.foreach.counter.initial.value">0</prop> 
+            </props>  
+        </property> 
+    </bean>  
+    
+    <bean id="viewResolver"  
+        class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">  
+        <property name="suffix" value=".htm" /><!-- 上面已经指定了模板路径，这里只需定义后缀 -->  
+        <property name="contentType" value="text/html;charset=utf-8"></property> <!-- 设置编码格式 --> 
+		<property name="dateToolAttribute">
+	        <value>dateTool</value>
+	    </property>
+	    <property name="numberToolAttribute">
+	        <value>numberTool</value>
+	    </property>
+	    <property name="exposeSessionAttributes" value="true"/>
+		<property name="exposeRequestAttributes" value="true"/>
+
+	</bean>
+	
+	<!-- task任务扫描注解 -->  
+	<task:annotation-driven/>  
+	
+  	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+	<context:component-scan base-package="qb.llrj.pay" />
+  	
+	<!-- 配置文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
+</beans>

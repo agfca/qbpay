@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>账户信息管理</title>
+    <!--避免IE使用兼容模式-->
+    <base href="/qbpay-forwardsys/" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="js/plugins/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+	<link href="js/plugins/bootstrap-validator/bootstrapValidator.css" rel="stylesheet">
+	<link href="js/plugins/layer/skin/layer.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrapStyle/bootstrapStyle.css" type="text/css">
+    
+    
+	<style>
+	.breadcrumb>li+li:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "";
+    }
+	</style>
+</head>
+<body class="gray-bg" style="height: 75%">
+<!-- 主体开始 -->
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>账号管理  <i class="fa fa-angle-double-right"></i> 角色管理</h5>
+            </div>
+            <div class="ibox-content">
+            	<ul class="breadcrumb breadcrumd">
+		        <li>
+		             <input type="text" class="form-control datepicker" id="StartDate" readonly="readonly" name="socialCodeStartDate" placeholder="开始日期" />
+		        </li>
+       			<li style="text-align: center;">至 </li>
+		        <li>
+		            <input type="text" class="form-control datepicker" id="endDate" readonly="readonly" name="socialCodeStartDate" placeholder="截止日期" />
+		        </li>
+		        <li>状态：
+		        	 <select class="btn btn-default" name="searchData" id="searchData" onchange="change()" style="cursor: pointer;height: 34px;width: 150px;">
+			                <option value="-1">全部</option>
+			                <option value="0">未结算</option>
+			                <option value="1">已结算位</option>
+			        </select>
+		        </li>
+		        <li>
+		            <button type="button">查询</button>
+		        </li>
+    		</ul> 
+    		
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="example">
+                            <table id="mydata" class="table tabla table-bordered table-hover tablb">
+	            			</table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 主体结束 -->
+
+<script type="text/javascript"  src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/ztree/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="js/ztree/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="js/ztree/jquery.ztree.exedit.js"></script>	
+	<script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="js/plugins/bootstrap-validator/bootstrapValidator.js"></script>
+    <script src="js/plugins/bootstrap-switch/bootstrap-switch.js"></script>
+	<script src="js/plugins/layer/layer.min.js"></script>
+	<script type="text/javascript" src="js/CommAjax.js"></script>
+	<script type="text/javascript" src="js/CommPublic.js"></script>
+<script>
+	var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            $('#mydata').bootstrapTable({
+                url: 'daytotal/getData.htm',         		//请求后台的URL（*）
+                method: 'post',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: false,                      //是否显示行间隔色
+                cache:true,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 10,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: false,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                maintainSelected:true,
+                columns : [{ radio: true },
+                            {
+			    				align: 'center',
+			                    field: 'id',
+			                    title: '编号'
+			                },
+			                {
+			    				align: 'center',
+			                    field: 'clientName',
+			                    title: '客户姓名'
+			                },
+			                
+			                {
+	            				align: 'center',
+			                    field: 'referMoney',
+			                    title: '提交金额'
+			                },
+			                
+			                {
+	            				align: 'center',
+			                    field: 'factMoney',
+			                    title: '实际支付金额',
+								visible:false
+			                },
+			                {
+	            				align: 'center',
+			                    field: 'realityMoney',
+			                    title: '可体现金额'
+			                },
+			                {
+	            				align: 'center',
+			                    field: 'createTime',
+			                    title: '创建日期',
+			                    formatter:function(value,row,index){
+			                    	return CommPublic.changeDateFormat(value);
+			                    }
+			                },
+			                {
+	            				align: 'center',
+			                    field: 'memo',
+			                    title: '结算状态',
+			                    formatter:function(value,row,index){
+			                    	if(value==1){
+			                    		return '<span style="color:#00ff00">已结算</span>';
+			                    	}else if(value==0){
+			                    		return '<span style="color:#FF0000">未结算</span>';
+			                    	}else{
+			                    		return '';
+			                    	}
+			                    }
+			                },
+			                {
+			                	align: 'center',
+			                    field: 'Desc',
+			                    title: '操作',
+			                    formatter : function(value,row,index){
+			                    	var control_name = "'" + row.control_name + "'";
+			                    	var	button = '<button class="bta" onclick="delControl('+row.control_id+')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>xxx</button>&nbsp&nbsp&nbsp&nbsp;';
+			                    	var setting = '<button class="bta" onclick="setting('+row.control_id+','+control_name+')"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>申请结算</button>';
+			                    	return button + setting;
+			                    }
+			                }
+                            ]
+            });
+        };
+
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                departmentname: $("#txt_search_departmentname").val(),
+                statu: $("#txt_search_statu").val()
+            };
+            return temp;
+        };
+        return oTableInit;
+    };
+    
+$(function () {
+	
+	
+	//----初始化表格 结束----------------------
+    //1.初始化Table
+    var oTable = new TableInit();
+    oTable.Init();
+    
+    $(".datepicker").datepicker({
+        language: "zh-CN",
+        autoclose: true,//选中之后自动隐藏日期选择框
+        clearBtn: false,//清除按钮
+        todayBtn: true,//今日按钮
+        format: "yyyy-mm-dd"//日期格式，详见 http://bootstrap-datepicker.readthedocs.org/en/release/options.html#format
+    });
+	$(".datepicker").datepicker('setDate',new Date()); //设置为当前日期	
+	
+})
+
+</script>
+</html>

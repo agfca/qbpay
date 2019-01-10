@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/qbpay.iml" filepath="$PROJECT_DIR$/qbpay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qbpay-backsys/qbpay-backsys.iml" filepath="$PROJECT_DIR$/qbpay-backsys/qbpay-backsys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qbpay-dao/qbpay-dao.iml" filepath="$PROJECT_DIR$/qbpay-dao/qbpay-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qbpay-forwardsys/qbpay-forwardsys.iml" filepath="$PROJECT_DIR$/qbpay-forwardsys/qbpay-forwardsys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qbpay-service/qbpay-service.iml" filepath="$PROJECT_DIR$/qbpay-service/qbpay-service.iml" />
+    </modules>
+  </component>
+</project>

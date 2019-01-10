@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="qbpay-backsys" />
+        <module name="qbpay-dao" />
+        <module name="qbpay-forwardsys" />
+        <module name="qbpay-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="qbpay" target="1.5" />
+      <module name="qbpay-backsys" target="1.7" />
+      <module name="qbpay-dao" target="1.7" />
+      <module name="qbpay-forwardsys" target="1.7" />
+      <module name="qbpay-service" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

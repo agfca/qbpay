@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="qbpay-backsys:war">
+    <output-path>$PROJECT_DIR$/qbpay-backsys/target</output-path>
+    <root id="archive" name="qbpay-backsys-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="qbpay-backsys:war exploded" />
+    </root>
+  </artifact>
+</component>

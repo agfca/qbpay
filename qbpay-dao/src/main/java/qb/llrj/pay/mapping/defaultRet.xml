@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qb.llrj.pay.dao.DefaultRateDao">
+
+  	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="qb.llrj.pay.model.DefaultRate">
+	    select
+	    *
+	    from default_rate
+	    where id = #{id}
+  	</select>
+  
+  	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	    delete from default_rate
+	    where id = #{id}
+  	</delete>
+  
+  	<insert id="insert" parameterType="qb.llrj.pay.model.DefaultRate" useGeneratedKeys="true" keyProperty="id">
+	    insert into default_rate 
+	    		(productId, productName, proportion, status, tTypeId, notifyUrl, returnUrl, submitUrl, ext, ext1)
+	    values 	(#{productId},#{productName}, #{proportion}, #{status},#{tTypeId}, #{notifyUrl}, #{returnUrl}, #{submitUrl}, #{ext}, #{ext1})
+  	</insert>
+  
+	<update id="updateByPrimaryKey" parameterType="qb.llrj.pay.model.DefaultRate">
+	    update default_rate
+	    	set 
+	    	productId = #{productId},
+	      	productName = #{productName},
+	      	proportion = #{proportion},
+	      	status = #{status},
+	      	tTypeId = #{tTypeId},
+	      	notifyUrl = #{notifyUrl},
+	      	returnUrl = #{returnUrl},
+	      	submitUrl = #{submitUrl},
+	      	ext = #{ext},
+	      	ext1 = #{ext1}
+	    where id = #{id}
+  	</update>
+  
+	<select id="findAll" resultType="qb.llrj.pay.model.DefaultRate">
+		select * from default_rate
+	</select>
+	
+	<select id="findByParam" resultType="qb.llrj.pay.model.DefaultRate" parameterType="map">
+		select * from default_rate
+			where 1=1
+			<if test="tTypeId != null and tTypeId != 0">and tTypeId = #{tTypeId}</if>
+			<if test="productId != null and productId != 0">and productId = #{productId}</if>
+	</select>
+</mapper>

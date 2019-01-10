@@ -1,0 +1,55 @@
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="nav-close"><i class="fa fa-times-circle"></i>
+    </div>
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs" style="font-size:20px;">
+                                <i class="fa fa-area-chart"></i>
+                                <strong class="font-bold">hAdmin</strong>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                <div class="logo-element">1111   $!user.clientName
+                </div>
+            </li>
+            <li>
+                <a class="J_menuItem" href="index_v1.html">
+                    <i class="fa fa-home"></i>
+                    <span class="nav-label">我的秦邦国际</span>
+                </a>
+            </li>
+            #foreach($menu in $menus)
+          		#if($!menu.menuParentId == 0)
+	           		<li>
+			        <a href="javascript:void(0)">$!menu.menuIcon<span class="nav-label">$!menu.menuName</span><span class="fa arrow"></span></a>
+		        #end
+	        	#foreach($m in $menus)
+	        		#if($!menu.menuId == $!m.menuParentId)
+		                <ul class="nav nav-second-level">
+		                	<li><a class="J_menuItem" href="$!m.menuUrl">$!m.menuName</a>
+		                    </li>
+		                </ul>
+	                #end
+                #end
+	            </li>
+	            #if($!menu.menuParentId == 0)
+	            	<li class="line dk"></li>
+	            #end
+            #end
+            
+           </ul>
+    </div>
+</nav>
+<!--左侧导航结束-->
+<script type="text/javascript">
+	function menu(li){
+		var url = $(li).attr("menu-url");
+		document.location.href = url;
+	}
+</script>

@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 登录</title>
+    <base href="/qbpay-forwardsys/" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico"> 
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+	<link href="css/bootstrapValidator.min.css" rel="stylesheet">
+	
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+	
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">h</h1>
+
+            </div>
+            <h3>欢迎使用 hAdmin</h3>
+
+            <form class="m-t" role="form" id="myform" action="user/login2.htm">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="clientPhone" name="clientPhone" placeholder="用户名" required="" value="18223327212">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="密码" required="" value="123456">
+                </div>
+                <button type="button" id="btnlogin"  class="btn btn-primary block full-width m-b">登 录</button>
+
+
+                <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a> | <a href="userRegister/index.htm">注册账号</a>
+                </p>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+	<script src="js/layer/layer.min.js"></script>
+	<script src="js/plugins/layer/layer.min.js"></script>
+	
+	<script src="js/bootstrapValidator.min.js"></script>
+	
+	<script src="js/CommAjax.js"></script>
+	<script src="js/md5.min.js"></script>
+    <script>
+       $(function(){
+    	   $('#myform').bootstrapValidator({
+   	　　　　　　　　message: 'This value is not valid',
+   	            　feedbackIcons: {
+   	                　　　　　　　　valid: 'glyphicon glyphicon-ok',
+   	                　　　　　　　　invalid: 'glyphicon glyphicon-remove',
+   	                　　　　　　　　validating: 'glyphicon glyphicon-refresh'
+   	            　　　　　　　　   },
+   	            fields: {
+   	            	clientPhone: {
+   	                    validators: {
+   	                        notEmpty: {
+   	                            message: '手机号码不能为空'
+   	                        }
+   	                    }
+   	                },
+   	                password: {
+   	                    validators: {
+   	                        notEmpty: {
+   	                            message: '登录密码不能为空'
+   	                        }
+   	                    }
+   	                }
+   	            }
+   	        });
+    	   $("#btnlogin").on("click",function(){
+    		   var data = $('#myform').data('bootstrapValidator');
+    		   if (data) {
+    			    // 修复记忆的组件不验证
+    			        data.validate();
+    			        if (!data.isValid()) {
+    			            return false;
+    			        }
+    			    }
+    		   //提交登录
+    		   var data={
+    				   "clientPhone":$("#clientPhone").val(),
+    				   "password":md5($("#password").val())
+    		   }
+    		   var index = layer.load();
+				setTimeout(function(){
+					layer.close(index);
+					CommAjax.SubmitAjaxCallBack("userRegister/loginSubmit.htm",data,function(res){
+					console.log(JSON.stringify(res));
+					if(res.Result==false){
+						layer.alert(res.Msg);
+					}
+					else{
+						console.log(res)
+						window.location.href = res.url;
+					}
+					
+				},null)
+				},500);
+			});
+		});
+	</script>
+    
+
+</body>
+
+</html>
